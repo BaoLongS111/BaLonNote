@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BaLonNote</string>
+    <string name="note_text">Note</string>
+    <string name="todo_text">Todo</string>
+    <string name="search_note_text">Search Note</string>
+</resources>
