@@ -6,18 +6,59 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="250">
+        motion:duration="200">
        <KeyFrameSet>
+            <KeyAttribute motion:motionTarget="@id/imageFilter"
+                motion:framePosition="15"
+                android:translationX="-6dp"/>
 
+           <KeyAttribute motion:motionTarget="@id/imageFilter"
+               motion:framePosition="30"
+               android:translationX="6dp"/>
+
+           <KeyAttribute motion:motionTarget="@id/imageFilter"
+               motion:framePosition="45"
+               android:translationX="-4dp"/>
+
+           <KeyAttribute motion:motionTarget="@id/imageFilter"
+               motion:framePosition="60"
+               android:translationX="4dp"/>
+
+           <KeyAttribute motion:motionTarget="@id/imageFilter"
+               motion:framePosition="75"
+               android:translationX="0dp"/>
 
        </KeyFrameSet>
+        <OnClick/>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@id/imageFilter">
 
+            <Transform android:translationX="0dp"/>
+            <CustomAttribute motion:attributeName="crossfade" motion:customFloatValue="0"/>
+        </Constraint>
+
+        <Constraint android:id="@id/itemText">
+
+            <CustomAttribute motion:attributeName="textColor" motion:customColorValue="@color/text_sub"/>
+
+        </Constraint>
 
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
+
+        <Constraint android:id="@id/imageFilter">
+
+            <Transform android:translationX="0dp"/>
+            <CustomAttribute motion:attributeName="crossfade" motion:customFloatValue="1"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/itemText">
+            <CustomAttribute motion:attributeName="textColor" motion:customColorValue="@color/black"/>
+        </Constraint>
+
     </ConstraintSet>
 </MotionScene>
