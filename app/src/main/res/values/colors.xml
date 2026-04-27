@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 主文字：笔记标题、正文 -->
+    <color name="text_main">#FF1A1A1A</color>
+    <!-- 次要文字：时间、预览、提示字 -->
+    <color name="text_sub">#FF888888</color>
 </resources>

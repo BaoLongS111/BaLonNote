@@ -1,8 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.BaLonNote" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- 全局窗口背景 → 纯白 -->
+        <item name="android:windowBackground">@color/white</item>
+        <!-- 全局默认文字颜色 → 深灰，护眼不刺眼 -->
+        <item name="android:textColorPrimary">@color/text_main</item>
+        <item name="android:textColorSecondary">@color/text_sub</item>
+
+        <!-- 状态栏基础配置 -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.BaLonNote" parent="Base.Theme.BaLonNote" />
