@@ -29,7 +29,6 @@
                android:translationX="0dp"/>
 
        </KeyFrameSet>
-        <OnClick/>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
