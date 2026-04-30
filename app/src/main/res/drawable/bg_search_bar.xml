@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 浅灰色背景，和截图一致 -->
+    <solid android:color="#F0F0F0"/>
+    <!-- 圆角半径，16dp最圆润，和截图效果匹配 -->
+    <corners android:radius="16dp"/>
+</shape>

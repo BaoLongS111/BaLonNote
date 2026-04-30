@@ -34,23 +34,53 @@
                 android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.5" />
+                app:layout_collapseParallaxMultiplier="1.0" />
 
-            <LinearLayout
+
+            <!-- ✅ 新增：自定义搜索栏（放在最顶部） -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/text_sub"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:id="@+id/serach_view"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_search_bar"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="1.0"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <!-- 放大镜图标 -->
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/iv_search_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 搜索输入框 -->
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search_fill"/>
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:hint="搜索笔记"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#999999"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_search_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.appcompat.widget.Toolbar
@@ -98,9 +128,9 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/nestedScrollView"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
