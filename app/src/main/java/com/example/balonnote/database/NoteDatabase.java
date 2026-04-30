@@ -1,4 +1,4 @@
-package com.example.balonnote.Database;
+package com.example.balonnote.database;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.balonnote.DAO.FolderDAO;
-import com.example.balonnote.DAO.NoteDAO;
-import com.example.balonnote.Entity.Folder;
-import com.example.balonnote.Entity.Note;
+import com.example.balonnote.dao.FolderDAO;
+import com.example.balonnote.dao.NoteDAO;
+import com.example.balonnote.entity.Folder;
+import com.example.balonnote.entity.Note;
 
 @Database(entities = {Note.class, Folder.class}, version = 1, exportSchema = false)
 public abstract class NoteDatabase extends RoomDatabase {

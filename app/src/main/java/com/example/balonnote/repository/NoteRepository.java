@@ -1,12 +1,12 @@
-package com.example.balonnote.Repository;
+package com.example.balonnote.repository;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.balonnote.DAO.NoteDAO;
-import com.example.balonnote.Database.NoteDatabase;
-import com.example.balonnote.Entity.Note;
+import com.example.balonnote.dao.NoteDAO;
+import com.example.balonnote.database.NoteDatabase;
+import com.example.balonnote.entity.Note;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

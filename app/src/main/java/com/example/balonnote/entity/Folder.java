@@ -1,4 +1,4 @@
-package com.example.balonnote.Entity;
+package com.example.balonnote.entity;
 
 
 import androidx.room.ColumnInfo;

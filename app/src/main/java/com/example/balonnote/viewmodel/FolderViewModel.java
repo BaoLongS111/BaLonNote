@@ -1,11 +1,11 @@
-package com.example.balonnote.ViewModels;
+package com.example.balonnote.viewmodel;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.balonnote.Entity.Folder;
-import com.example.balonnote.Repository.FolderRepository;
+import com.example.balonnote.entity.Folder;
+import com.example.balonnote.repository.FolderRepository;
 
 import java.util.List;
 

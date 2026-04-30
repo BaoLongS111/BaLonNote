@@ -1,10 +1,13 @@
-package com.example.balonnote.Entity;
+package com.example.balonnote.entity;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.Objects;
 
 @Entity(
         tableName = "note_table",
@@ -119,5 +122,29 @@ public class Note {
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id,folderId,title,content,createTime,updateTime,isPinned,isDeleted,sortOrder);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(this == obj) return true;
+        if(!(obj instanceof Note)) return false;
+
+        Note note = (Note) obj;
+
+        return id == note.getId()
+                && Objects.equals(folderId, note.getFolderId())
+                && Objects.equals(title, note.getTitle())
+                && Objects.equals(content, note.getContent())
+                && createTime == note.getCreateTime()
+                && updateTime == note.getUpdateTime()
+                && isPinned == note.isPinned()
+                && isDeleted == note.isDeleted()
+                && sortOrder == note.getSortOrder();
+
     }
 }
