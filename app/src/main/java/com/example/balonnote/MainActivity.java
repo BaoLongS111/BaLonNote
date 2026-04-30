@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController controller;
     private int currentIndex = 0;
-    private boolean isTitleAnimated = false;
     // 记录SearchBar原始高度，用于动画恢复
     private int originalSearchBarHeight = 0;
 
@@ -84,14 +83,10 @@ public class MainActivity extends AppCompatActivity {
             float titleOffsetY = dp2px(10);                   // 小标题偏移量
 
             // 3. 初始化状态
-            binding.lyContent.toolbarTitle.setAlpha(0f);
-            binding.lyContent.toolbarTitle.setTranslationY(titleOffsetY);
-            isTitleAnimated = false;
 
             // 4. 滚动监听（核心动画）
             binding.lyContent.appbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
                 int currentScroll = Math.abs(verticalOffset);
-                float titleAlpha = 1f;
 
                 // ==============================================
                 // 【新增】SearchBar 三段式收缩动画
@@ -122,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 //                    searchEdit.setAlpha(1f - progress);
                     searchEdit.setVisibility(View.GONE);
                     // 高度收缩到一半
-                    searchParams.height = originalSearchBarHeight - (int) (originalSearchBarHeight/2 * progress);
+                    searchParams.height = originalSearchBarHeight - (int) (originalSearchBarHeight * progress);
                     searchBar.setLayoutParams(searchParams);
                 }
                 // 阶段3：超过阈值 → SearchBar直接隐藏（无中间态）
@@ -131,38 +126,67 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // ==============================================
-                // 原有逻辑：大标题视差 + 渐变 + 小标题弹出
+                // 标题切换逻辑：任何时刻只显示一个标题
+                // 不允许两个同时出现，也不允许两个同时消失
                 // ==============================================
-                // 阶段1：SearchBar消失前 → 大标题固定不动（视差1.0）
+
+                int titleEndOffset = triggerOffset + (int) fadeRange;
+                int titleSwitchOffset = triggerOffset + (int) fadeRange / 2;
+
+                // 最低透明度，避免切换前太淡导致像是消失了
+                float minTitleAlpha = 0.2f;
+
+                // search bar消失前
                 if (currentScroll <= triggerOffset) {
-                    titleAlpha = 1f;
-                    // 重置小标题
-                    if (isTitleAnimated) {
-                        binding.lyContent.toolbarTitle.animate().cancel();
-                        binding.lyContent.toolbarTitle.setAlpha(0f);
-                        binding.lyContent.toolbarTitle.setTranslationY(titleOffsetY);
-                        isTitleAnimated = false;
-                    }
+                    // 完全显示大标题，隐藏顶部标题
+                    binding.lyContent.collapseText.setVisibility(View.VISIBLE);
+                    binding.lyContent.collapseText.setAlpha(1f);
+
+                    binding.lyContent.toolbarTitle.setVisibility(View.INVISIBLE);
+                    binding.lyContent.toolbarTitle.setAlpha(0f);
+                    binding.lyContent.toolbarTitle.setTranslationY(titleOffsetY);
+
+
+                } else if (currentScroll < titleSwitchOffset) {
+                    // 只显示大标题，让大标题稍微淡出
+                    float progress = (currentScroll - triggerOffset)
+                            / (float) (titleSwitchOffset - triggerOffset);
+
+                    float bigTitleAlpha = 1f - (1f - minTitleAlpha) * progress;
+
+                    binding.lyContent.collapseText.setVisibility(View.VISIBLE);
+                    binding.lyContent.collapseText.setAlpha(bigTitleAlpha);
+
+                    binding.lyContent.toolbarTitle.setVisibility(View.INVISIBLE);
+                    binding.lyContent.toolbarTitle.setAlpha(0f);
+                    binding.lyContent.toolbarTitle.setTranslationY(titleOffsetY);
+
+
+                } else if (currentScroll < titleEndOffset) {
+                    // 只显示顶部标题，让顶部标题继续淡入
+                    float progress = (currentScroll - titleSwitchOffset)
+                            / (float) (titleEndOffset - titleSwitchOffset);
+
+                    float toolbarTitleAlpha = minTitleAlpha + (1f - minTitleAlpha) * progress;
+
+                    binding.lyContent.collapseText.setVisibility(View.INVISIBLE);
+                    binding.lyContent.collapseText.setAlpha(0f);
+
+                    binding.lyContent.toolbarTitle.setVisibility(View.VISIBLE);
+                    binding.lyContent.toolbarTitle.setAlpha(toolbarTitleAlpha);
+                    binding.lyContent.toolbarTitle.setTranslationY(titleOffsetY * (1f - progress));
+
+
+                } else {
+                    // 完全显示顶部标题，隐藏大标题
+                    binding.lyContent.collapseText.setVisibility(View.INVISIBLE);
+                    binding.lyContent.collapseText.setAlpha(0f);
+
+                    binding.lyContent.toolbarTitle.setVisibility(View.VISIBLE);
+                    binding.lyContent.toolbarTitle.setAlpha(1f);
+                    binding.lyContent.toolbarTitle.setTranslationY(0f);
+
                 }
-                // 阶段2：SearchBar消失后 → 大标题滚动+渐变
-                else if (currentScroll <= triggerOffset + fadeRange) {
-                    float progress = (currentScroll - triggerOffset) / fadeRange;
-                    titleAlpha = 1f - progress;
-                }
-                // 阶段3：大标题消失 → 小标题弹出
-                else {
-                    titleAlpha = 0f;
-                    if (!isTitleAnimated) {
-                        isTitleAnimated = true;
-                        binding.lyContent.toolbarTitle.animate()
-                                .alpha(1f)
-                                .translationY(0)
-                                .setDuration(200)
-                                .setInterpolator(new DecelerateInterpolator())
-                                .start();
-                    }
-                }
-                binding.lyContent.collapseText.setAlpha(titleAlpha);
             });
         });
     }
