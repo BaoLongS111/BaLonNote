@@ -1,4 +1,4 @@
-package com.example.balonnote.dao;
+package com.example.balonnote.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.balonnote.entity.Folder;
+import com.example.balonnote.Entity.Folder;
 
 import java.util.List;
 
