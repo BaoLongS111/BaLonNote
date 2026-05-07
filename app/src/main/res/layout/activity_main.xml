@@ -5,7 +5,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="新增笔记"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/flatten_button_color"
+        app:rippleColor="@color/flatten_button_color"
+        app:srcCompat="@drawable/ic_add"
+        app:shapeAppearance="@style/FabCircleShape"
+        app:tint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
 
     <include android:id="@+id/ly_content" layout="@layout/content_layout" />
 

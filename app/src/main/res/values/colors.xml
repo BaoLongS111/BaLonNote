@@ -6,4 +6,7 @@
     <!-- 次要文字：时间、预览、提示字 -->
     <color name="text_sub">#969696</color>
     <color name="nav_background_color">#fdfdfd</color>
+    <color name="note_content_color">#707070</color>
+    <color name="note_create_time_color">#B7B7B7</color>
+    <color name="flatten_button_color">#ffbb10</color>
 </resources>

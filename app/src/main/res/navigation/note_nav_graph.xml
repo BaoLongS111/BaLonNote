@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.example.balonnote.NoteFragment"
+        android:name="com.example.balonnote.fragment.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" />
     <fragment
         android:id="@+id/todoFragment"
-        android:name="com.example.balonnote.TodoFragment"
+        android:name="com.example.balonnote.fragment.TodoFragment"
         android:label="fragment_todo"
         tools:layout="@layout/fragment_todo" />
 </navigation>

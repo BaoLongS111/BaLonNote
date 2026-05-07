@@ -1,5 +1,6 @@
-package com.example.balonnote;
+package com.example.balonnote.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.balonnote.R;
 import com.example.balonnote.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -61,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
         bindNavigation();
 
+        animatorTitle();
+
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),AddEditNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void animatorTitle(){
         // ========== 滚动动画：SearchBar收缩 + 大标题渐变 + 小标题弹出 ==========
         binding.lyContent.appbar.post(() -> {
             // 1. 获取基础尺寸

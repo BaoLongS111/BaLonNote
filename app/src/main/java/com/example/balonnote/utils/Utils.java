@@ -1,6 +1,4 @@
-package com.example.balonnote;
-
-import android.content.Context;
+package com.example.balonnote.utils;
 
 public class Utils {
 
