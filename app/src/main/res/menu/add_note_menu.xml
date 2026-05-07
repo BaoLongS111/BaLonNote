@@ -6,12 +6,14 @@
         android:id="@+id/item_back"
         android:icon="@drawable/ic_back"
         android:title="撤销"
+        android:enabled="false"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/item_forward"
         android:icon="@drawable/ic_forward"
-        android:title="前进"
+        android:title="复原"
+        android:enabled="false"
         app:showAsAction="always"/>
 
     <item

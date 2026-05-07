@@ -9,80 +9,84 @@
     tools:context=".activity.AddEditNoteActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:id="@+id/tool_bar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/title_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/add_note_menu"
-        app:navigationIcon="@drawable/ic_back_new"/>
+        app:navigationIcon="@drawable/ic_back_new" />
 
     <EditText
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:id="@+id/title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@null"
         android:hint="标题"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColorHint="@color/note_content_color"
-        android:textColor="@color/black"
-        android:id="@+id/title_edit_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/date_layout"
-        android:background="@null"/>
-    
-    <LinearLayout
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/note_content_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/date_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/date_layout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:id="@+id/date_layout"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_edit_text"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_edit_text">
 
         <TextView
+            android:id="@+id/tv_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="4月30日 16:06  |"
-            android:textSize="14sp"
             android:textColor="@color/note_create_time_color"
-            android:id="@+id/tv_create_time"/>
+            android:textSize="14sp" />
+
         <TextView
+            android:id="@+id/total_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0字"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            android:textSize="14sp"
-            android:textColor="@color/note_create_time_color"/>
+            android:text="0字"
+            android:textColor="@color/note_create_time_color"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <EditText
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:id="@+id/content_edit_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_layout"
-        android:background="@null"
-        android:hint="@string/begin_write"
-        android:textSize="18sp"
         android:layout_marginTop="12dp"
-        android:singleLine="false"
-        android:textColorHint="@color/note_content_color"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/begin_write"
         android:inputType="textMultiLine|textCapCharacters"
-        android:textColor="@color/black"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:singleLine="false"
+        android:textColor="@color/black"
+        android:textColorHint="@color/note_content_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_layout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
