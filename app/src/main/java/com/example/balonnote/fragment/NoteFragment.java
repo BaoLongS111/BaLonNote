@@ -32,6 +32,7 @@ public class NoteFragment extends Fragment {
     private NoteAdapter adapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private int lastNotesCount = 0;
+
     public static NoteFragment newInstance() {
         NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
@@ -55,7 +56,7 @@ public class NoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         noteViewModel = new NoteViewModel(getContext());
-        adapter = new NoteAdapter();
+        adapter = new NoteAdapter(getContext());
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         binding.recyclearView.setLayoutManager(staggeredGridLayoutManager);
         binding.recyclearView.setAdapter(adapter);

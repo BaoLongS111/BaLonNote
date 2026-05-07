@@ -33,6 +33,8 @@ public class AddEditNoteActivity extends AppCompatActivity {
     private String beforeString = "";
     private String currentString = "";
 
+    private Note currentNote = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +46,13 @@ public class AddEditNoteActivity extends AppCompatActivity {
             v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
         });
-
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            currentNote = bundle.getParcelable("note");
+        }
         noteViewModel = new NoteViewModel(getApplicationContext());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日 HH:mm");
-        String currentTime = simpleDateFormat.format(new Date());
-        binding.tvCreateTime.setText(currentTime + "  |");
+        init();
 
         binding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,20 +83,38 @@ public class AddEditNoteActivity extends AppCompatActivity {
                     String title = binding.titleEditText.getText().toString();
                     String content = binding.contentEditText.getText().toString();
                     long currentTime = System.currentTimeMillis();
-                    if (!title.equals("") && !content.equals("")) {
-                        Note note = new Note(
-                                null,title,content,currentTime,currentTime,false,false,currentTime
-                        );
-                        noteViewModel.insertNote(note);
-                        Toast.makeText(AddEditNoteActivity.this, "保存成功！", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if(currentNote==null){
+                        if (!title.equals("") && !content.equals("")) {
+                            Note note = new Note(
+                                    null,title,content,currentTime,currentTime,false,false,currentTime
+                            );
+                            noteViewModel.insertNote(note);
+                            Toast.makeText(AddEditNoteActivity.this, "保存成功！", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(AddEditNoteActivity.this, "标题和内容不能为空！", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
-                        Toast.makeText(AddEditNoteActivity.this, "标题和内容不能为空！", Toast.LENGTH_SHORT).show();
+                        if (!title.equals("") && !content.equals("")) {
+                            currentNote.setTitle(title);
+                            currentNote.setContent(content);
+                            currentNote.setUpdateTime(currentTime);
+                            noteViewModel.updateNote(currentNote);
+                            Toast.makeText(AddEditNoteActivity.this, "更新成功！", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(AddEditNoteActivity.this, "标题和内容不能为空！", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     return true;
                 }
 
                 if (id == R.id.item_delete) {
+                    if(currentNote!=null){
+                        noteViewModel.moveToTrash(currentNote.getId());
+                        Toast.makeText(AddEditNoteActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                     return true;
                 }
                 return false;
@@ -125,5 +146,17 @@ public class AddEditNoteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void init(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M月d日 HH:mm");
+        String currentTime = simpleDateFormat.format(new Date());
+        binding.tvCreateTime.setText(currentTime + "  |");
+        if(currentNote!=null){
+            binding.titleEditText.setText(currentNote.getTitle());
+            binding.contentEditText.setText(currentNote.getContent());
+            binding.contentEditText.setSelection(binding.contentEditText.getText().length());
+            binding.totalText.setText(currentNote.getContent().length()+"字");
+        }
     }
 }

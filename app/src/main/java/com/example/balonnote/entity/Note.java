@@ -1,5 +1,9 @@
 package com.example.balonnote.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -21,7 +25,7 @@ import java.util.Objects;
                 @Index("folder_id")
         }
 )
-public class Note {
+public class Note implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo(name = "folder_id")
@@ -51,6 +55,34 @@ public class Note {
         this.isDeleted = isDeleted;
         this.sortOrder = sortOrder;
     }
+
+    protected Note(Parcel in) {
+        id = in.readLong();
+        if (in.readByte() == 0) {
+            folderId = null;
+        } else {
+            folderId = in.readLong();
+        }
+        title = in.readString();
+        content = in.readString();
+        createTime = in.readLong();
+        updateTime = in.readLong();
+        isPinned = in.readByte() != 0;
+        isDeleted = in.readByte() != 0;
+        sortOrder = in.readLong();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -146,5 +178,28 @@ public class Note {
                 && isDeleted == note.isDeleted()
                 && sortOrder == note.getSortOrder();
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(id);
+        if (folderId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(folderId);
+        }
+        parcel.writeString(title);
+        parcel.writeString(content);
+        parcel.writeLong(createTime);
+        parcel.writeLong(updateTime);
+        parcel.writeByte((byte) (isPinned ? 1 : 0));
+        parcel.writeByte((byte) (isDeleted ? 1 : 0));
+        parcel.writeLong(sortOrder);
     }
 }
