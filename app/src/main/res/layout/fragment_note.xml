@@ -8,6 +8,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="60dp"
+        android:paddingTop="20dp"
+        android:clipToPadding="true"
         android:id="@+id/recyclear_view"/>
 
 </FrameLayout>

@@ -39,9 +39,9 @@ public class Note {
     @ColumnInfo(name = "is_deleted")
     private boolean isDeleted;
     @ColumnInfo(name = "sort_order")
-    private int sortOrder;
+    private long sortOrder;
 
-    public Note(Long folderId, String title, String content, long createTime, long updateTime, boolean isPinned, boolean isDeleted, int sortOrder) {
+    public Note(Long folderId, String title, String content, long createTime, long updateTime, boolean isPinned, boolean isDeleted, long sortOrder) {
         this.folderId = folderId;
         this.title = title;
         this.content = content;
@@ -116,11 +116,11 @@ public class Note {
         isDeleted = deleted;
     }
 
-    public int getSortOrder() {
+    public long getSortOrder() {
         return sortOrder;
     }
 
-    public void setSortOrder(int sortOrder) {
+    public void setSortOrder(long sortOrder) {
         this.sortOrder = sortOrder;
     }
 
